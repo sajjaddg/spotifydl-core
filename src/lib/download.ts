@@ -1,7 +1,6 @@
-import os from 'os'
 import ytdl from 'ytdl-core'
 import SpotifyDlError from './Error'
-import { readFile, unlink, writeFile } from 'fs-extra'
+import {readFile, unlink, writeFile} from 'fs-extra'
 import axios from 'axios'
 import Ffmpeg from 'fluent-ffmpeg'
 
@@ -13,7 +12,7 @@ import Ffmpeg from 'fluent-ffmpeg'
  */
 export const downloadYT = async (url: string): Promise<Buffer> => {
     if (!ytdl.validateURL(url)) throw new SpotifyDlError('Invalid YT URL', 'SpotifyDlError')
-    const filename = `${os.tmpdir()}/${Math.random().toString(36).slice(-5)}.mp3`
+    const filename = `${Math.random().toString(36).slice(-5)}.mp3`
     const stream = ytdl(url, {
         quality: 'highestaudio',
         filter: 'audioonly'
@@ -53,4 +52,4 @@ export const downloadYTAndSave = async (url: string, filename = (Math.random() +
  * @returns Buffer
  */
 export const getBufferFromUrl = async (url: string): Promise<Buffer> =>
-    (await axios.get(url, { responseType: 'arraybuffer' })).data
+    (await axios.get(url, {responseType: 'arraybuffer'})).data
